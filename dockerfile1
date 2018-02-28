@@ -1,0 +1,9 @@
+FROM centos
+RUN yum update -y
+RUN yum install -y httpd
+EXPOSE 80
+ADD index.html /var/www/html
+ENV HTTPD_CONF /etc/httpd/conf/httpd.conf
+ENV HTTPD_PATH /usr/sbin/httpd
+ENTRYPOINT ["$HTTPD_PATH -f $HTTPD_CONF -k start"]
+CMD ["ps -ef | grep httpd"]
